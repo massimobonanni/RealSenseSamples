@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="PXCMSenseManager">
+    <Position X="2" Y="1.5" Width="3" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="PXCMSenseManager.Handler">
+        <Compartments>
+          <Compartment Name="Nested Types" Collapsed="false" />
+        </Compartments>
+        <NestedTypes>
+          <Delegate Name="PXCMSenseManager.Handler.OnConnectDelegate">
+            <TypeIdentifier />
+          </Delegate>
+          <Delegate Name="PXCMSenseManager.Handler.OnModuleSetProfileDelegate">
+            <TypeIdentifier />
+          </Delegate>
+          <Delegate Name="PXCMSenseManager.Handler.OnModuleProcessedFrameDelegate">
+            <TypeIdentifier />
+          </Delegate>
+          <Delegate Name="PXCMSenseManager.Handler.OnNewSampleDelegate">
+            <TypeIdentifier />
+          </Delegate>
+          <Delegate Name="PXCMSenseManager.Handler.OnStatusDelegate">
+            <TypeIdentifier />
+          </Delegate>
+        </NestedTypes>
+        <TypeIdentifier />
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier />
+  </Class>
+  <Class Name="PXCMCapture">
+    <Position X="8.25" Y="1.25" Width="3.25" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="PXCMCapture.Device" Collapsed="true">
+        <NestedTypes>
+          <Enum Name="PXCMCapture.Device.PowerLineFrequency" Collapsed="true">
+            <TypeIdentifier />
+          </Enum>
+          <Enum Name="PXCMCapture.Device.MirrorMode" Collapsed="true">
+            <TypeIdentifier />
+          </Enum>
+          <Enum Name="PXCMCapture.Device.IVCAMAccuracy" Collapsed="true">
+            <TypeIdentifier />
+          </Enum>
+          <Enum Name="PXCMCapture.Device.Property" Collapsed="true">
+            <TypeIdentifier />
+          </Enum>
+          <Enum Name="PXCMCapture.Device.StreamOption" Collapsed="true">
+            <TypeIdentifier />
+          </Enum>
+          <Class Name="PXCMCapture.Device.StreamProfile" Collapsed="true">
+            <TypeIdentifier />
+          </Class>
+          <Class Name="PXCMCapture.Device.StreamProfileSet" Collapsed="true">
+            <TypeIdentifier />
+          </Class>
+          <Class Name="PXCMCapture.Device.PropertyInfo" Collapsed="true">
+            <TypeIdentifier />
+          </Class>
+        </NestedTypes>
+        <TypeIdentifier />
+      </Class>
+      <Class Name="PXCMCapture.Sample">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="PXCMCapture.Handler" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Enum Name="PXCMCapture.StreamType">
+        <TypeIdentifier />
+      </Enum>
+      <Class Name="PXCMCapture.DeviceInfo" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Enum Name="PXCMCapture.DeviceModel">
+        <TypeIdentifier />
+      </Enum>
+      <Enum Name="PXCMCapture.DeviceOrientation">
+        <TypeIdentifier />
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier />
+  </Class>
+  <Class Name="PXCMImage">
+    <Position X="12.25" Y="5.75" Width="3" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="PXCMImage.ImageData" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Enum Name="PXCMImage.PixelFormat" Collapsed="true">
+        <TypeIdentifier />
+      </Enum>
+      <Enum Name="PXCMImage.Rotation">
+        <TypeIdentifier />
+      </Enum>
+      <Class Name="PXCMImage.ImageInfo" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Enum Name="PXCMImage.Access" Collapsed="true">
+        <TypeIdentifier />
+      </Enum>
+      <Enum Name="PXCMImage.Option" Collapsed="true">
+        <TypeIdentifier />
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier />
+  </Class>
+  <Class Name="PXCMCaptureManager" Collapsed="true">
+    <Position X="5.75" Y="1.75" Width="2" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="PXCMSession" Collapsed="true">
+    <Position X="5.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="PXCMVideoModule">
+    <Position X="5" Y="12.75" Width="2.75" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Struct Name="PXCMVideoModule.DeviceCap">
+        <TypeIdentifier />
+      </Struct>
+      <Class Name="PXCMVideoModule.StreamDesc">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="PXCMVideoModule.StreamDescSet">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="PXCMVideoModule.DataDesc">
+        <TypeIdentifier />
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

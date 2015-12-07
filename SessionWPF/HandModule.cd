@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="PXCMHandModule">
+    <Position X="1.5" Y="1" Width="2.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="PXCMHandConfiguration">
+    <Position X="4.75" Y="0.5" Width="2.5" />
+    <NestedTypes>
+      <Delegate Name="PXCMHandConfiguration.OnFiredAlertDelegate" Collapsed="true">
+        <TypeIdentifier />
+      </Delegate>
+      <Delegate Name="PXCMHandConfiguration.OnFiredGestureDelegate" Collapsed="true">
+        <TypeIdentifier />
+      </Delegate>
+    </NestedTypes>
+    <TypeIdentifier />
+  </Class>
+  <Class Name="PXCMHandData">
+    <Position X="8" Y="0.75" Width="2.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="PXCMHandData.ExtremityData" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Enum Name="PXCMHandData.GestureStateType">
+        <TypeIdentifier />
+      </Enum>
+      <Enum Name="PXCMHandData.TrackingModeType" Collapsed="true">
+        <TypeIdentifier />
+      </Enum>
+      <Class Name="PXCMHandData.IContour" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Enum Name="PXCMHandData.FingerType" Collapsed="true">
+        <TypeIdentifier />
+      </Enum>
+      <Enum Name="PXCMHandData.AlertType" Collapsed="true">
+        <TypeIdentifier />
+      </Enum>
+      <Class Name="PXCMHandData.AlertData" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="PXCMHandData.IHand" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="PXCMHandData.GestureData">
+        <TypeIdentifier />
+      </Class>
+      <Enum Name="PXCMHandData.AccessOrderType" Collapsed="true">
+        <TypeIdentifier />
+      </Enum>
+      <Class Name="PXCMHandData.FingerData" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Enum Name="PXCMHandData.JointType" Collapsed="true">
+        <TypeIdentifier />
+      </Enum>
+      <Class Name="PXCMHandData.JointData" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Enum Name="PXCMHandData.JointSpeedType" Collapsed="true">
+        <TypeIdentifier />
+      </Enum>
+      <Enum Name="PXCMHandData.ExtremityType" Collapsed="true">
+        <TypeIdentifier />
+      </Enum>
+      <Enum Name="PXCMHandData.TrackingStatusType" Collapsed="true">
+        <TypeIdentifier />
+      </Enum>
+      <Enum Name="PXCMHandData.BodySideType" Collapsed="true">
+        <TypeIdentifier />
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

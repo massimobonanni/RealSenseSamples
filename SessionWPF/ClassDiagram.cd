@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="PXCMSession">
+    <Position X="3.25" Y="9.5" Width="3.75" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="PXCMSession.ImplVersion">
+        <TypeIdentifier />
+      </Class>
+      <Enum Name="PXCMSession.ImplGroup" Collapsed="true">
+        <TypeIdentifier />
+      </Enum>
+      <Enum Name="PXCMSession.ImplSubgroup" Collapsed="true">
+        <TypeIdentifier />
+      </Enum>
+      <Enum Name="PXCMSession.CoordinateSystem">
+        <TypeIdentifier />
+      </Enum>
+      <Class Name="PXCMSession.ImplDesc">
+        <TypeIdentifier />
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
