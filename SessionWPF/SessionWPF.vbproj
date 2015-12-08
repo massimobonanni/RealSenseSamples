@@ -161,6 +161,7 @@
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
     </EmbeddedResource>
     <None Include="ClassDiagram.cd" />
+    <None Include="FaceModule.cd" />
     <None Include="HandModule.cd" />
     <None Include="PXCMSenseManager.cd" />
     <None Include="My Project\Settings.settings">

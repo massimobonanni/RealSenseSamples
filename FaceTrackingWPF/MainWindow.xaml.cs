@@ -125,7 +125,7 @@ namespace FaceTrackingWPF
 
                     var sample = SenseManager.QuerySample();
                     ElaborateSample(sample, faces);
-                    SenseManager.ReleaseFrame();
+                    if (!PollingTaskCancellationToken.IsCancellationRequested) SenseManager.ReleaseFrame();
                 }
             }
         }

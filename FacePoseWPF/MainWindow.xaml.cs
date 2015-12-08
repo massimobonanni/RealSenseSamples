@@ -28,11 +28,10 @@ namespace FacePoseWPF
 
         private PXCMFaceModule FaceModule;
 
-        private PXCMFaceData FaceData;
-
         public MainWindow()
         {
             InitializeComponent();
+            IsPoseVisible = false;
         }
 
         #region INotifyPropertyChanged
@@ -56,6 +55,50 @@ namespace FacePoseWPF
                 NotifyPropertyChanged();
             }
         }
+
+        private float _Pitch;
+        public float Pitch
+        {
+            get { return _Pitch; }
+            set
+            {
+                _Pitch = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        private float _Roll;
+        public float Roll
+        {
+            get { return _Roll; }
+            set
+            {
+                _Roll = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        private float _Yaw;
+        public float Yaw
+        {
+            get { return _Yaw; }
+            set
+            {
+                _Yaw = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        private bool _IsPoseVisible;
+        public bool IsPoseVisible
+        {
+            get { return _IsPoseVisible; }
+            set
+            {
+                _IsPoseVisible = value;
+                NotifyPropertyChanged();
+            }
+        }
         #endregion
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -66,8 +109,9 @@ namespace FacePoseWPF
 
             SenseManager.EnableStream(PXCMCapture.StreamType.STREAM_TYPE_COLOR, 1280, 720);
             SenseManager.EnableFace();
+
             InitializeCamera();
-            //ConfigurePollingTask();
+            ConfigurePollingTask();
         }
 
         private void Window_Closed(object sender, EventArgs e)
@@ -83,26 +127,21 @@ namespace FacePoseWPF
         private void InitializeCamera()
         {
             FaceModule = SenseManager.QueryFace();
-            FaceData = FaceModule.CreateOutput();
 
             var config = FaceModule.CreateActiveConfiguration();
             config.detection.isEnabled = false;
-            config.landmarks.isEnabled = true;
-            config.pose.isEnabled = true;
+            config.landmarks.isEnabled = false;
+            config.pose.isEnabled = false;
             config.strategy = PXCMFaceConfiguration.TrackingStrategyType.STRATEGY_FARTHEST_TO_CLOSEST;
 
             if (config.ApplyChanges().IsSuccessful())
             {
-                var handler = new PXCMSenseManager.Handler();
-                handler.onModuleProcessedFrame  = OnModuleProcessedFrame;
-                if (SenseManager.Init(handler).IsError())
+                if (SenseManager.Init().IsError())
                 {
                     MessageBox.Show("Errore nell'inizializzazione della camera");
                     Close();
                 }
             }
-
-            SenseManager.StreamFrames(true);
 
             config.Dispose();
         }
@@ -131,32 +170,20 @@ namespace FacePoseWPF
                     var face = faceData.QueryFaceByIndex(0);
                     var sample = SenseManager.QuerySample();
                     ElaborateSample(sample, face);
-                    SenseManager.ReleaseFrame();
+                    if (!PollingTaskCancellationToken.IsCancellationRequested) SenseManager.ReleaseFrame();
                 }
             }
         }
         #endregion
 
 
-        pxcmStatus OnModuleProcessedFrame(Int32 mid, PXCMBase module, PXCMCapture.Sample sample)
-        {
-            //// check if the callback is from the hand tracking module
-            if (mid == PXCMFaceModule.CUID)
-            {
-                // Retrieve the current hand data
-                FaceData.Update();
-                var face = FaceData.QueryFaceByIndex(0);
-                ElaborateSample(sample, face);
-            }
-
-            return pxcmStatus.PXCM_STATUS_NO_ERROR;
-        }
-
         private void ElaborateSample(PXCMCapture.Sample sample, PXCMFaceData.Face face)
         {
             if (sample == null) return;
 
             WriteableBitmap imageRGB = null;
+            bool isPoseVisible = false;
+            float pitchValue = 0, yawValue = 0, rollValue = 0;
 
             if (sample.color != null)
             {
@@ -165,17 +192,16 @@ namespace FacePoseWPF
 
             if (face != null)
             {
+                //PXCMFaceData.PoseData poseData = face.QueryPose();
 
-                PXCMFaceData.LandmarksData landmarkData = face.QueryLandmarks();
-                PXCMFaceData.LandmarkPoint[] landmarkPoints = null;
-                if (landmarkData.QueryPoints(out landmarkPoints))
-                {
-                    foreach (var point in landmarkPoints)
-                    {
-                        imageRGB.FillEllipseCentered((int)point.image.x, (int)point.image.y, 4, 4, Colors.White);
-                    }
-                }
-
+                //PXCMFaceData.PoseEulerAngles poseAngles;
+                //if (poseData.QueryPoseAngles(out poseAngles))
+                //{
+                //    isPoseVisible = true;
+                //    pitchValue = poseAngles.pitch;
+                //    yawValue = poseAngles.yaw;
+                //    rollValue = poseAngles.roll;
+                //}
             }
 
             if (imageRGB != null)
@@ -184,9 +210,12 @@ namespace FacePoseWPF
             Dispatcher.Invoke(() =>
             {
                 this.ImageRGB = imageRGB;
+                //this.IsPoseVisible  = isPoseVisible;
+                //this.Pitch= pitchValue;
+                //this.Roll=rollValue ;
+                //this.Yaw= yawValue;
             });
 
-            Process.GetCurrentProcess();
         }
 
         private WriteableBitmap GetImage(PXCMImage image)

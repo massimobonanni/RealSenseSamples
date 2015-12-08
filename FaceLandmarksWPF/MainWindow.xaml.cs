@@ -116,7 +116,7 @@ namespace FaceLandmarksWPF
                     var face = faceData.QueryFaceByIndex(0);
                     var sample = SenseManager.QuerySample();
                     ElaborateSample(sample, face);
-                    SenseManager.ReleaseFrame();
+                    if (!PollingTaskCancellationToken.IsCancellationRequested) SenseManager.ReleaseFrame();
                 }
             }
         }

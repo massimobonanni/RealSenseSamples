@@ -5,10 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FacePoseWPF"
         mc:Ignorable="d"
-        Title="Intel Realsense - Face Pose" Height="780" Width="1024" Loaded="Window_Loaded" Closed="Window_Closed">
+        Title="Intel Realsense - Face Pose" Height="900" Width="1024" Loaded="Window_Loaded" Closed="Window_Closed">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -23,6 +25,20 @@
                 <Image Source="{Binding ImageRGB}" Stretch="Fill" />
             </Border>
         </StackPanel>
+
+        <!--<Grid  Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"
+               >--><!--Visibility="{Binding IsPoseVisible, Converter={StaticResource BooleanToVisibilityConverter}}"--><!--
+            <Image Source="Images/pose.jpg"  Width="375"></Image>
+            <Canvas>
+                <Label Canvas.Left="81" Canvas.Top="175"  FontSize="16" FontWeight="Bold" 
+                       Content="{Binding Pitch,StringFormat=\{0:0.000\}}" />
+                <Label Canvas.Left="216" Canvas.Top="137"  FontSize="16" FontWeight="Bold" 
+                       Content="{Binding Roll,StringFormat=\{0:0.000\}}" />
+                <Label Canvas.Left="223" Canvas.Top="287"  FontSize="16" FontWeight="Bold" 
+                       Content="{Binding Yaw,StringFormat=\{0:0.000\}}" />
+            </Canvas>
+            
+        </Grid>-->
 
     </Grid>
 </Window>
