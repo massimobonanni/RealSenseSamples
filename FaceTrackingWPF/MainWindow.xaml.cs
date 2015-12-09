@@ -81,7 +81,7 @@ namespace FaceTrackingWPF
             config.detection.isEnabled = true;
             config.landmarks.isEnabled = false;
             config.pose.isEnabled = false;
-            config.strategy = PXCMFaceConfiguration.TrackingStrategyType.STRATEGY_FARTHEST_TO_CLOSEST;
+            config.strategy = PXCMFaceConfiguration.TrackingStrategyType.STRATEGY_CLOSEST_TO_FARTHEST ;
 
             if (config.ApplyChanges().IsSuccessful())
             {

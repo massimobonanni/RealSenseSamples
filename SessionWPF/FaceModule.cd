@@ -4,5 +4,110 @@
     <Position X="5" Y="1" Width="2.25" />
     <TypeIdentifier />
   </Class>
+  <Class Name="PXCMFaceData">
+    <Position X="8.5" Y="2.25" Width="2.5" />
+    <NestedTypes>
+      <Class Name="PXCMFaceData.LandmarkPointSource" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="PXCMFaceData.LandmarksData" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="PXCMFaceData.GazeCalibData" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Enum Name="PXCMFaceData.LandmarkType" Collapsed="true">
+        <TypeIdentifier />
+      </Enum>
+      <Class Name="PXCMFaceData.Face" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Enum Name="PXCMFaceData.LandmarksGroupType" Collapsed="true">
+        <TypeIdentifier />
+      </Enum>
+      <Class Name="PXCMFaceData.PoseData" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="PXCMFaceData.LandmarkPoint" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="PXCMFaceData.GazePoint" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="PXCMFaceData.GazeData" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="PXCMFaceData.PoseEulerAngles" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="PXCMFaceData.RecognitionModuleData" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="PXCMFaceData.HeadPosition" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="PXCMFaceData.PulseData" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="PXCMFaceData.PoseQuaternion" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="PXCMFaceData.RecognitionData" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="PXCMFaceData.AlertData" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="PXCMFaceData.ExpressionsData" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="PXCMFaceData.DetectionData" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier />
+  </Class>
+  <Class Name="PXCMFaceConfiguration">
+    <Position X="1" Y="3.5" Width="3" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="PXCMFaceConfiguration.DetectionConfiguration">
+        <TypeIdentifier />
+      </Class>
+      <Delegate Name="PXCMFaceConfiguration.OnFiredAlertDelegate" Collapsed="true">
+        <TypeIdentifier />
+      </Delegate>
+      <Class Name="PXCMFaceConfiguration.GazeConfiguration" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="PXCMFaceConfiguration.PoseConfiguration" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="PXCMFaceConfiguration.PulseConfiguration" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Enum Name="PXCMFaceConfiguration.TrackingStrategyType">
+        <TypeIdentifier />
+      </Enum>
+      <Class Name="PXCMFaceConfiguration.LandmarksConfiguration" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="PXCMFaceConfiguration.ExpressionsConfiguration" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Enum Name="PXCMFaceConfiguration.TrackingModeType" Collapsed="true">
+        <TypeIdentifier />
+      </Enum>
+      <Class Name="PXCMFaceConfiguration.RecognitionConfiguration" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+      <Enum Name="PXCMFaceConfiguration.SmoothingLevelType">
+        <TypeIdentifier />
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier />
+  </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>
