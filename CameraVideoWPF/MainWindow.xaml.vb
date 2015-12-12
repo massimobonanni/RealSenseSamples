@@ -1,6 +1,7 @@
 ﻿Imports System.ComponentModel
 Imports System.Runtime.InteropServices
 Imports System.Threading
+Imports WPFCore
 
 #Const POLLING = True
 
@@ -139,15 +140,15 @@ Class MainWindow
         Dim imageDepth As WriteableBitmap = Nothing
 
         If sample.color IsNot Nothing Then
-            imageRGB = GetImage(sample.color)
+            imageRGB = sample.color.GetImage()
             imageRGB.Freeze()
         End If
         If sample.ir IsNot Nothing Then
-            imageIR = GetImage(sample.ir)
+            imageIR = sample.ir.GetImage()
             imageIR.Freeze()
         End If
         If sample.depth IsNot Nothing Then
-            imageDepth = GetImage(sample.depth)
+            imageDepth = sample.depth.GetImage()
             imageDepth.Freeze()
         End If
 
@@ -157,22 +158,6 @@ Class MainWindow
                               Me.ImageDepth = imageDepth
                           End Sub)
     End Sub
-
-    Private Function GetImage(image As PXCMImage) As WriteableBitmap
-        Dim imageData As PXCMImage.ImageData = Nothing
-        Dim returnImage As WriteableBitmap = Nothing
-        Dim width = 0
-        Dim height = 0
-        If image.AcquireAccess(PXCMImage.Access.ACCESS_READ,
-                               PXCMImage.PixelFormat.PIXEL_FORMAT_RGB32,
-                               imageData).IsSuccessful() Then
-            width = Convert.ToInt32(imageData.pitches(0) \ 4)
-            height = image.info.height
-            returnImage = imageData.ToWritableBitmap(width, height, 96, 96)
-            image.ReleaseAccess(imageData)
-        End If
-        Return returnImage
-    End Function
 
     Public Event PropertyChanged As PropertyChangedEventHandler Implements INotifyPropertyChanged.PropertyChanged
 End Class

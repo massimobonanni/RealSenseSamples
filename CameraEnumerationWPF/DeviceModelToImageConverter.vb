@@ -11,7 +11,7 @@ Public Class DeviceModelToImageConverter
                     Return "Images/R200.png"
                 Case PXCMCapture.DeviceModel.DEVICE_MODEL_F200
                     Return "Images/F200.png"
-                Case PXCMCapture.DeviceModel.DEVICE_MODEL_SR300
+                Case PXCMCapture.DeviceModel.DEVICE_MODEL_F250
                     Return "Images/F200.png"
                 Case PXCMCapture.DeviceModel.DEVICE_MODEL_GENERIC
                     Return "Images/WebCam.png"

@@ -10,6 +10,7 @@ using System.Windows.Media.Imaging;
 using FaceTrackingWPF;
 using System.Collections.Generic;
 using System.Linq;
+using WPFCore;
 
 namespace FaceTrackingWPF
 {
@@ -81,7 +82,7 @@ namespace FaceTrackingWPF
             config.detection.isEnabled = true;
             config.landmarks.isEnabled = false;
             config.pose.isEnabled = false;
-            config.strategy = PXCMFaceConfiguration.TrackingStrategyType.STRATEGY_CLOSEST_TO_FARTHEST ;
+            config.strategy = PXCMFaceConfiguration.TrackingStrategyType.STRATEGY_CLOSEST_TO_FARTHEST;
 
             if (config.ApplyChanges().IsSuccessful())
             {
@@ -110,28 +111,22 @@ namespace FaceTrackingWPF
         private void PollingCode()
         {
             PXCMFaceData faceData = FaceModule.CreateOutput();
-            List<PXCMFaceData.Face> faces = new List<PXCMFaceData.Face>();
 
             while (!PollingTaskCancellationToken.IsCancellationRequested)
             {
                 if (SenseManager.AcquireFrame().IsSuccessful())
                 {
                     faceData.Update();
-                    faces.Clear();
-                    for (int i = 0; i < faceData.QueryNumberOfDetectedFaces(); i++)
-                    {
-                        faces.Add(faceData.QueryFaceByIndex(i));
-                    }
-
+                    var faces = faceData.QueryFaces();
                     var sample = SenseManager.QuerySample();
-                    ElaborateSample(sample, faces);
+                    ElaborateSample(sample, faces); 
                     if (!PollingTaskCancellationToken.IsCancellationRequested) SenseManager.ReleaseFrame();
                 }
             }
         }
         #endregion
 
-        private IEnumerable<Color> TrackingColors = new List<Color>() { Colors.Yellow, Colors.Blue, Colors.Green, Colors.Red, Colors.White, Colors.Fuchsia };
+        private IEnumerable<Color> TrackingColors = new List<Color>() { Colors.Yellow, Colors.Blue, Colors.Green, Colors.Red };
 
         private Color GetColorByIndex(int index)
         {
@@ -147,7 +142,7 @@ namespace FaceTrackingWPF
 
             if (sample.color != null)
             {
-                imageRGB = GetImage(sample.color);
+                imageRGB =sample.color.GetImage();
             }
 
             if (faces != null && faces.Any())
@@ -155,7 +150,7 @@ namespace FaceTrackingWPF
                 for (int i = 0; i < faces.Count(); i++)
                 {
                     var face = faces.ElementAt(i);
-                    var detectionData = face.QueryDetection();
+                    PXCMFaceData.DetectionData detectionData = face.QueryDetection();
                     PXCMRectI32 faceBound;
                     if (detectionData != null && detectionData.QueryBoundingRect(out faceBound))
                     {
@@ -164,7 +159,6 @@ namespace FaceTrackingWPF
                             GetColorByIndex(i), 4);
                     }
                 }
-
             }
 
             if (imageRGB != null)
@@ -175,25 +169,8 @@ namespace FaceTrackingWPF
                                 this.ImageRGB = imageRGB;
                             });
 
-            Process.GetCurrentProcess();
         }
 
-        private WriteableBitmap GetImage(PXCMImage image)
-        {
-            PXCMImage.ImageData imageData = null;
-            WriteableBitmap returnImage = null;
-            int width = 0;
-            int height = 0;
-            if (image.AcquireAccess(PXCMImage.Access.ACCESS_READ,
-                                   PXCMImage.PixelFormat.PIXEL_FORMAT_RGB32,
-                                   out imageData).IsSuccessful())
-            {
-                width = Convert.ToInt32(imageData.pitches[0] / 4);
-                height = image.info.height;
-                returnImage = imageData.ToWritableBitmap(width, height, 96, 96);
-                image.ReleaseAccess(imageData);
-            }
-            return returnImage;
-        }
+       
     }
 }
