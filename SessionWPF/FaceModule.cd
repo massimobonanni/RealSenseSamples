@@ -5,12 +5,12 @@
     <TypeIdentifier />
   </Class>
   <Class Name="PXCMFaceData">
-    <Position X="7" Y="3.75" Width="2.5" />
+    <Position X="5.5" Y="3.75" Width="2.75" />
     <Compartments>
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
     <NestedTypes>
-      <Class Name="PXCMFaceData.LandmarkPointSource" Collapsed="true">
+      <Class Name="PXCMFaceData.LandmarkPointSource">
         <TypeIdentifier />
       </Class>
       <Class Name="PXCMFaceData.LandmarksData" Collapsed="true">
@@ -22,7 +22,7 @@
       <Enum Name="PXCMFaceData.LandmarkType" Collapsed="true">
         <TypeIdentifier />
       </Enum>
-      <Class Name="PXCMFaceData.Face">
+      <Class Name="PXCMFaceData.Face" Collapsed="true">
         <TypeIdentifier />
       </Class>
       <Enum Name="PXCMFaceData.LandmarksGroupType" Collapsed="true">
@@ -31,7 +31,7 @@
       <Class Name="PXCMFaceData.PoseData" Collapsed="true">
         <TypeIdentifier />
       </Class>
-      <Class Name="PXCMFaceData.LandmarkPoint" Collapsed="true">
+      <Class Name="PXCMFaceData.LandmarkPoint">
         <TypeIdentifier />
       </Class>
       <Class Name="PXCMFaceData.GazePoint" Collapsed="true">
@@ -64,7 +64,7 @@
       <Class Name="PXCMFaceData.ExpressionsData" Collapsed="true">
         <TypeIdentifier />
       </Class>
-      <Class Name="PXCMFaceData.DetectionData">
+      <Class Name="PXCMFaceData.DetectionData" Collapsed="true">
         <TypeIdentifier />
       </Class>
     </NestedTypes>
@@ -94,7 +94,7 @@
       <Enum Name="PXCMFaceConfiguration.TrackingStrategyType">
         <TypeIdentifier />
       </Enum>
-      <Class Name="PXCMFaceConfiguration.LandmarksConfiguration" Collapsed="true">
+      <Class Name="PXCMFaceConfiguration.LandmarksConfiguration">
         <TypeIdentifier />
       </Class>
       <Class Name="PXCMFaceConfiguration.ExpressionsConfiguration" Collapsed="true">
