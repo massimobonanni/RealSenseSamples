@@ -16,13 +16,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WPFCore;
 
 namespace FacePoseWPF
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
         private PXCMSenseManager SenseManager;
 
@@ -89,7 +90,7 @@ namespace FacePoseWPF
             }
         }
 
-        private bool _IsPoseVisible;
+        private bool _IsPoseVisible = false;
         public bool IsPoseVisible
         {
             get { return _IsPoseVisible; }
@@ -131,7 +132,7 @@ namespace FacePoseWPF
             var config = FaceModule.CreateActiveConfiguration();
             config.detection.isEnabled = false;
             config.landmarks.isEnabled = false;
-            config.pose.isEnabled = false;
+            config.pose.isEnabled = true;
             config.strategy = PXCMFaceConfiguration.TrackingStrategyType.STRATEGY_FARTHEST_TO_CLOSEST;
 
             if (config.ApplyChanges().IsSuccessful())
@@ -187,21 +188,21 @@ namespace FacePoseWPF
 
             if (sample.color != null)
             {
-                imageRGB = GetImage(sample.color);
+                imageRGB = sample.color.GetImage();
             }
 
             if (face != null)
             {
-                //PXCMFaceData.PoseData poseData = face.QueryPose();
+                PXCMFaceData.PoseData poseData = face.QueryPose();
 
-                //PXCMFaceData.PoseEulerAngles poseAngles;
-                //if (poseData.QueryPoseAngles(out poseAngles))
-                //{
-                //    isPoseVisible = true;
-                //    pitchValue = poseAngles.pitch;
-                //    yawValue = poseAngles.yaw;
-                //    rollValue = poseAngles.roll;
-                //}
+                PXCMFaceData.PoseEulerAngles poseAngles;
+                if (poseData.QueryPoseAngles(out poseAngles))
+                {
+                    isPoseVisible = true;
+                    pitchValue = poseAngles.pitch;
+                    yawValue = poseAngles.yaw;
+                    rollValue = poseAngles.roll;
+                }
             }
 
             if (imageRGB != null)
@@ -210,30 +211,12 @@ namespace FacePoseWPF
             Dispatcher.Invoke(() =>
             {
                 this.ImageRGB = imageRGB;
-                //this.IsPoseVisible  = isPoseVisible;
-                //this.Pitch= pitchValue;
-                //this.Roll=rollValue ;
-                //this.Yaw= yawValue;
+                this.IsPoseVisible = isPoseVisible;
+                this.Pitch = pitchValue;
+                this.Roll = rollValue;
+                this.Yaw = yawValue;
             });
 
-        }
-
-        private WriteableBitmap GetImage(PXCMImage image)
-        {
-            PXCMImage.ImageData imageData = null;
-            WriteableBitmap returnImage = null;
-            int width = 0;
-            int height = 0;
-            if (image.AcquireAccess(PXCMImage.Access.ACCESS_READ,
-                                   PXCMImage.PixelFormat.PIXEL_FORMAT_RGB32,
-                                   out imageData).IsSuccessful())
-            {
-                width = Convert.ToInt32(imageData.pitches[0] / 4);
-                height = image.info.height;
-                returnImage = imageData.ToWritableBitmap(width, height, 96, 96);
-                image.ReleaseAccess(imageData);
-            }
-            return returnImage;
         }
     }
 }

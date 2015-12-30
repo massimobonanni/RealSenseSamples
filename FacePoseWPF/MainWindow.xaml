@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FacePoseWPF"
         mc:Ignorable="d"
-        Title="Intel Realsense - Face Pose" Height="900" Width="1024" Loaded="Window_Loaded" Closed="Window_Closed">
+        Title="Intel Realsense - Face Pose" Height="800" Width="800" Loaded="Window_Loaded" Closed="Window_Closed">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </Window.Resources>
@@ -15,30 +15,29 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Grid.ColumnSpan="2">
+        <StackPanel Grid.Row="0" >
             <Border BorderBrush="Black" CornerRadius="10" BorderThickness="2" Padding="0"
-                Height="480" Width="854" VerticalAlignment="top" HorizontalAlignment="Center" Margin="10">
+                Height="300" Width="534" VerticalAlignment="top" HorizontalAlignment="Center" Margin="10">
                 <Image Source="{Binding ImageRGB}" Stretch="Fill" />
             </Border>
         </StackPanel>
 
-        <!--<Grid  Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"
-               >--><!--Visibility="{Binding IsPoseVisible, Converter={StaticResource BooleanToVisibilityConverter}}"--><!--
+        <Grid  Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"
+               Visibility="{Binding IsPoseVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Image Source="Images/pose.jpg"  Width="375"></Image>
             <Canvas>
-                <Label Canvas.Left="81" Canvas.Top="175"  FontSize="16" FontWeight="Bold" 
-                       Content="{Binding Pitch,StringFormat=\{0:0.000\}}" />
-                <Label Canvas.Left="216" Canvas.Top="137"  FontSize="16" FontWeight="Bold" 
-                       Content="{Binding Roll,StringFormat=\{0:0.000\}}" />
-                <Label Canvas.Left="223" Canvas.Top="287"  FontSize="16" FontWeight="Bold" 
-                       Content="{Binding Yaw,StringFormat=\{0:0.000\}}" />
+                <TextBlock Canvas.Left="81" Canvas.Top="183"  FontSize="16" FontWeight="Bold" 
+                       Text="{Binding Pitch, StringFormat={}{0:##0.00}}" />
+                <TextBlock Canvas.Left="216" Canvas.Top="137"  FontSize="16" FontWeight="Bold" 
+                       Text="{Binding Roll, StringFormat={}{0:##0.00}}" />
+                <TextBlock Canvas.Left="223" Canvas.Top="287"  FontSize="16" FontWeight="Bold" 
+                       Text="{Binding Yaw, StringFormat={}{0:##0.00}}" />
             </Canvas>
-            
-        </Grid>-->
+
+        </Grid>
 
     </Grid>
 </Window>
