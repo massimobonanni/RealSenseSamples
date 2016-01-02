@@ -5,12 +5,12 @@
     <TypeIdentifier />
   </Class>
   <Class Name="PXCMFaceData">
-    <Position X="5.5" Y="3.75" Width="2.75" />
+    <Position X="5.5" Y="3.75" Width="3.75" />
     <Compartments>
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
     <NestedTypes>
-      <Class Name="PXCMFaceData.LandmarkPointSource">
+      <Class Name="PXCMFaceData.LandmarkPointSource" Collapsed="true">
         <TypeIdentifier />
       </Class>
       <Class Name="PXCMFaceData.LandmarksData" Collapsed="true">
@@ -31,7 +31,7 @@
       <Class Name="PXCMFaceData.PoseData" Collapsed="true">
         <TypeIdentifier />
       </Class>
-      <Class Name="PXCMFaceData.LandmarkPoint">
+      <Class Name="PXCMFaceData.LandmarkPoint" Collapsed="true">
         <TypeIdentifier />
       </Class>
       <Class Name="PXCMFaceData.GazePoint" Collapsed="true">
@@ -58,7 +58,15 @@
       <Class Name="PXCMFaceData.RecognitionData" Collapsed="true">
         <TypeIdentifier />
       </Class>
-      <Class Name="PXCMFaceData.AlertData" Collapsed="true">
+      <Class Name="PXCMFaceData.AlertData">
+        <Compartments>
+          <Compartment Name="Nested Types" Collapsed="false" />
+        </Compartments>
+        <NestedTypes>
+          <Enum Name="PXCMFaceData.AlertData.AlertType">
+            <TypeIdentifier />
+          </Enum>
+        </NestedTypes>
         <TypeIdentifier />
       </Class>
       <Class Name="PXCMFaceData.ExpressionsData" Collapsed="true">
@@ -76,10 +84,10 @@
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
     <NestedTypes>
-      <Class Name="PXCMFaceConfiguration.DetectionConfiguration">
+      <Class Name="PXCMFaceConfiguration.DetectionConfiguration" Collapsed="true">
         <TypeIdentifier />
       </Class>
-      <Delegate Name="PXCMFaceConfiguration.OnFiredAlertDelegate" Collapsed="true">
+      <Delegate Name="PXCMFaceConfiguration.OnFiredAlertDelegate">
         <TypeIdentifier />
       </Delegate>
       <Class Name="PXCMFaceConfiguration.GazeConfiguration" Collapsed="true">
@@ -91,10 +99,10 @@
       <Class Name="PXCMFaceConfiguration.PulseConfiguration" Collapsed="true">
         <TypeIdentifier />
       </Class>
-      <Enum Name="PXCMFaceConfiguration.TrackingStrategyType">
+      <Enum Name="PXCMFaceConfiguration.TrackingStrategyType" Collapsed="true">
         <TypeIdentifier />
       </Enum>
-      <Class Name="PXCMFaceConfiguration.LandmarksConfiguration">
+      <Class Name="PXCMFaceConfiguration.LandmarksConfiguration" Collapsed="true">
         <TypeIdentifier />
       </Class>
       <Class Name="PXCMFaceConfiguration.ExpressionsConfiguration" Collapsed="true">
@@ -106,7 +114,7 @@
       <Class Name="PXCMFaceConfiguration.RecognitionConfiguration" Collapsed="true">
         <TypeIdentifier />
       </Class>
-      <Enum Name="PXCMFaceConfiguration.SmoothingLevelType">
+      <Enum Name="PXCMFaceConfiguration.SmoothingLevelType" Collapsed="true">
         <TypeIdentifier />
       </Enum>
     </NestedTypes>
