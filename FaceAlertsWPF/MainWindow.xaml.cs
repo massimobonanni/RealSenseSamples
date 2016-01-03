@@ -18,6 +18,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WPFCore;
 
+
+
 namespace FaceAlertsWPF
 {
     /// <summary>
@@ -26,10 +28,17 @@ namespace FaceAlertsWPF
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
 
+        private enum Mode
+        {
+            Polling,
+            Events
+        }
+
+        private Mode RetrieveMode = Mode.Polling;
+
         private PXCMSenseManager SenseManager;
 
         private PXCMFaceModule FaceModule;
-
 
         public MainWindow()
         {
@@ -103,9 +112,12 @@ namespace FaceAlertsWPF
             config.landmarks.isEnabled = false;
             config.pose.isEnabled = false;
             config.EnableAllAlerts();
-            config.strategy = PXCMFaceConfiguration.TrackingStrategyType.STRATEGY_FARTHEST_TO_CLOSEST;
-            PXCMFaceConfiguration.OnFiredAlertDelegate alertHandler = new PXCMFaceConfiguration.OnFiredAlertDelegate(OnAlertHandler);
-            config.SubscribeAlert(alertHandler);
+            if (RetrieveMode == Mode.Events)
+            {
+                config.strategy = PXCMFaceConfiguration.TrackingStrategyType.STRATEGY_FARTHEST_TO_CLOSEST;
+                PXCMFaceConfiguration.OnFiredAlertDelegate alertHandler = new PXCMFaceConfiguration.OnFiredAlertDelegate(OnAlertHandler);
+                config.SubscribeAlert(alertHandler);
+            }
             if (config.ApplyChanges().IsSuccessful())
             {
                 if (SenseManager.Init().IsError())
@@ -120,9 +132,14 @@ namespace FaceAlertsWPF
 
         private void OnAlertHandler(PXCMFaceData.AlertData alertData)
         {
+            DisplayAlertData(alertData);
+        }
+
+        private void DisplayAlertData(PXCMFaceData.AlertData alertData)
+        {
             Dispatcher.Invoke(() =>
             {
-                this.Alerts.Insert(0, $"[{DateTime.Now:HH:mm:ss}] - FaceId:{alertData.faceId} - {alertData.label }");
+                this.Alerts.Insert(0, $"[{alertData.timeStamp}] - FaceId: {alertData.faceId} - {alertData.label }");
             });
         }
 
@@ -147,9 +164,17 @@ namespace FaceAlertsWPF
                 if (SenseManager.AcquireFrame().IsSuccessful())
                 {
                     faceData.Update();
-                    var face = faceData.QueryFaceByIndex(0);
+                    if (RetrieveMode == Mode.Polling)
+                    {
+                        PXCMFaceData.AlertData alertData = null;
+                        for (int i = 0; i < faceData.QueryFiredAlertsNumber(); i++)
+                        {
+                            if (faceData.QueryFiredAlertData(i, out alertData).IsSuccessful())
+                                DisplayAlertData(alertData);
+                        }
+                    }
                     var sample = SenseManager.QuerySample();
-                    ElaborateSample(sample, face);
+                    ElaborateSample(sample);
                     if (!PollingTaskCancellationToken.IsCancellationRequested) SenseManager.ReleaseFrame();
                 }
             }
@@ -157,7 +182,7 @@ namespace FaceAlertsWPF
         #endregion
 
 
-        private void ElaborateSample(PXCMCapture.Sample sample, PXCMFaceData.Face face)
+        private void ElaborateSample(PXCMCapture.Sample sample)
         {
             if (sample == null) return;
 
