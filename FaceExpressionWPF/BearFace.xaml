@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="FaceExpressionWPF.BearFace"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FaceExpressionWPF">
+    <Grid Visibility="{Binding IsFaceVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+        <Image Source="Assets/teddy.png"></Image>
+        <Image Source="Assets/lefteyeclosed.png" 
+               Visibility="{Binding IsEyeLeftClosed, Converter={StaticResource BooleanToVisibilityConverter}}" />
+        <Image Source="Assets/righteyeclosed.png"
+               Visibility="{Binding IsEyeRightClosed, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+        <Image Source="Assets/normalmouth.png"
+               Visibility="{Binding IsMouthNormal, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+        <!--<Image Source="Assets/openmouth.png"
+               Visibility="{Binding HasMouthOpen, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+        <Image Source="Assets/smilemouth.png"
+               Visibility="{Binding IsSmailing, Converter={StaticResource BooleanToVisibilityConverter}}"/>-->
+        <Image Source="Assets/tongueout.png"
+               Visibility="{Binding IsTongueOut, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+    </Grid>
+</UserControl>
