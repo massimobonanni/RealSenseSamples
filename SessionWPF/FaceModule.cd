@@ -58,18 +58,24 @@
       <Class Name="PXCMFaceData.RecognitionData" Collapsed="true">
         <TypeIdentifier />
       </Class>
-      <Class Name="PXCMFaceData.AlertData">
+      <Class Name="PXCMFaceData.AlertData" Collapsed="true">
+        <Compartments>
+          <Compartment Name="Nested Types" Collapsed="false" />
+        </Compartments>
+        <TypeIdentifier />
+      </Class>
+      <Class Name="PXCMFaceData.ExpressionsData">
         <Compartments>
           <Compartment Name="Nested Types" Collapsed="false" />
         </Compartments>
         <NestedTypes>
-          <Enum Name="PXCMFaceData.AlertData.AlertType">
+          <Enum Name="PXCMFaceData.ExpressionsData.FaceExpression" Collapsed="true">
             <TypeIdentifier />
           </Enum>
+          <Class Name="PXCMFaceData.ExpressionsData.FaceExpressionResult">
+            <TypeIdentifier />
+          </Class>
         </NestedTypes>
-        <TypeIdentifier />
-      </Class>
-      <Class Name="PXCMFaceData.ExpressionsData" Collapsed="true">
         <TypeIdentifier />
       </Class>
       <Class Name="PXCMFaceData.DetectionData" Collapsed="true">
@@ -105,7 +111,12 @@
       <Class Name="PXCMFaceConfiguration.LandmarksConfiguration" Collapsed="true">
         <TypeIdentifier />
       </Class>
-      <Class Name="PXCMFaceConfiguration.ExpressionsConfiguration" Collapsed="true">
+      <Class Name="PXCMFaceConfiguration.ExpressionsConfiguration">
+        <NestedTypes>
+          <Class Name="PXCMFaceConfiguration.ExpressionsConfiguration.ExpressionsProperties" Collapsed="true">
+            <TypeIdentifier />
+          </Class>
+        </NestedTypes>
         <TypeIdentifier />
       </Class>
       <Enum Name="PXCMFaceConfiguration.TrackingModeType" Collapsed="true">

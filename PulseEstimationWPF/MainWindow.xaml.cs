@@ -17,7 +17,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WPFCore;
 
-namespace FaceExpressionWPF
+namespace PulseEstimationWPF
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -31,8 +31,6 @@ namespace FaceExpressionWPF
         public MainWindow()
         {
             InitializeComponent();
-
-            BearFace = new FaceModel();
         }
 
         #region INotifyPropertyChanged
@@ -57,17 +55,27 @@ namespace FaceExpressionWPF
             }
         }
 
-        private FaceModel _BearFace;
-        public FaceModel BearFace
+        private int _HeartRate;
+        public int HeartRate
         {
-            get { return _BearFace; }
+            get { return _HeartRate; }
             set
             {
-                _BearFace = value;
+                _HeartRate = value;
                 NotifyPropertyChanged();
             }
         }
 
+        private bool _IsHeartRateRetrieved;
+        public bool IsHeartRateRetrieved
+        {
+            get { return _IsHeartRateRetrieved; }
+            set
+            {
+                _IsHeartRateRetrieved = value;
+                NotifyPropertyChanged();
+            }
+        }
         #endregion
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -91,20 +99,20 @@ namespace FaceExpressionWPF
             SenseManager.Dispose();
         }
 
+
         #region Inizializzazione e acquisizione
         private void InitializeCamera()
         {
             FaceModule = SenseManager.QueryFace();
 
             var config = FaceModule.CreateActiveConfiguration();
-            config.detection.isEnabled = false;
+            config.detection.isEnabled = true;
             config.landmarks.isEnabled = false;
             config.pose.isEnabled = false;
-            config.strategy = PXCMFaceConfiguration.TrackingStrategyType.STRATEGY_FARTHEST_TO_CLOSEST;
+            config.strategy = PXCMFaceConfiguration.TrackingStrategyType.STRATEGY_CLOSEST_TO_FARTHEST;
 
-            PXCMFaceConfiguration.ExpressionsConfiguration exprConfig = config.QueryExpressions();
-            exprConfig.Enable();
-            exprConfig.EnableAllExpressions();
+            var pulseConfig = config.QueryPulse();
+            pulseConfig.Enable();
 
             if (config.ApplyChanges().IsSuccessful())
             {
@@ -139,7 +147,7 @@ namespace FaceExpressionWPF
                 if (SenseManager.AcquireFrame().IsSuccessful())
                 {
                     faceData.Update();
-                    var face = faceData.QueryFaceByIndex(0);
+                    var face = faceData.QueryFaceByID(0);
                     var sample = SenseManager.QuerySample();
                     ElaborateSample(sample, face);
                     if (!PollingTaskCancellationToken.IsCancellationRequested) SenseManager.ReleaseFrame();
@@ -149,15 +157,36 @@ namespace FaceExpressionWPF
         #endregion
 
 
+
         private void ElaborateSample(PXCMCapture.Sample sample, PXCMFaceData.Face face)
         {
             if (sample == null) return;
 
             WriteableBitmap imageRGB = null;
-
+            float heartRate =-1;
             if (sample.color != null)
             {
                 imageRGB = sample.color.GetImage();
+            }
+
+            if (face != null)
+            {
+
+                PXCMFaceData.DetectionData detectionData = face.QueryDetection();
+                PXCMRectI32 faceBound;
+                if (detectionData != null && detectionData.QueryBoundingRect(out faceBound))
+                {
+                    imageRGB.DrawRectangle(faceBound.x, faceBound.y,
+                        faceBound.x + faceBound.w, faceBound.y + faceBound.h,
+                        Colors.Red, 4);
+                }
+
+                PXCMFaceData.PulseData pulseData = face.QueryPulse();
+                if (pulseData != null)
+                    heartRate = pulseData.QueryHeartRate();
+                else
+                    heartRate = -1;
+
             }
 
             if (imageRGB != null)
@@ -166,12 +195,11 @@ namespace FaceExpressionWPF
             Dispatcher.Invoke(() =>
             {
                 this.ImageRGB = imageRGB;
-                if (face != null)
-                    BearFace.SetExpressionData(face.QueryExpressions());
-                else
-                    BearFace.SetExpressionData(null);
+                HeartRate =(int) Math.Round(heartRate,0);
+                IsHeartRateRetrieved = heartRate > 0;
             });
 
         }
+
     }
 }
