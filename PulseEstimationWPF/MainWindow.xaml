@@ -6,6 +6,12 @@
         xmlns:local="clr-namespace:PulseEstimationWPF"
         mc:Ignorable="d"
         Title="Intel Realsense - Pulse Estimation" Height="600" Width="800" Loaded="Window_Loaded" Closed="Window_Closed">
+    <Window.Resources>
+        <Storyboard x:Key="HeartBeatStoryboard" x:Name="HeartBeatStoryboard" AutoReverse="True" Duration="0:0:1" RepeatBehavior="Forever">
+            <DoubleAnimation  To="0" Storyboard.TargetProperty="(UIElement.Opacity)" 
+                             Storyboard.TargetName="heartBeat" d:IsOptimized="True" />
+        </Storyboard>
+        </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -23,8 +29,11 @@
             </Border>
         </StackPanel>
 
-        <TextBlock Grid.Row="1" FontSize="50" HorizontalAlignment="Center" 
-                   Visibility="{Binding IsHeartRateRetrieved,Converter={StaticResource BooleanToVisibilityConverter}}" 
-                   Text="{Binding HeartRate}"/>
+        <StackPanel Grid.Row="1" Margin="0,50,0,50" Orientation="Vertical" 
+                    Visibility="{Binding IsHeartRateRetrieved,Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Image x:Name="heartBeat" Source="Images/Heart.png" Width="100"></Image>
+            <TextBlock  FontSize="50" HorizontalAlignment="Center" Foreground="red"
+                        Text="{Binding HeartRate}"></TextBlock>
+        </StackPanel>
     </Grid>
 </Window>

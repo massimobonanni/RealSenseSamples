@@ -12,6 +12,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -24,6 +25,9 @@ namespace PulseEstimationWPF
     /// </summary>
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
+
+        private Storyboard HeartBeatStoryboard;
+
         private PXCMSenseManager SenseManager;
 
         private PXCMFaceModule FaceModule;
@@ -31,6 +35,7 @@ namespace PulseEstimationWPF
         public MainWindow()
         {
             InitializeComponent();
+            HeartBeatStoryboard = this.Resources["HeartBeatStoryboard"] as Storyboard;
         }
 
         #region INotifyPropertyChanged
@@ -76,6 +81,8 @@ namespace PulseEstimationWPF
                 NotifyPropertyChanged();
             }
         }
+
+        private int? LastHeartRate = null;
         #endregion
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -147,7 +154,7 @@ namespace PulseEstimationWPF
                 if (SenseManager.AcquireFrame().IsSuccessful())
                 {
                     faceData.Update();
-                    var face = faceData.QueryFaceByID(0);
+                    var face = faceData.QueryFaceByIndex(0);
                     var sample = SenseManager.QuerySample();
                     ElaborateSample(sample, face);
                     if (!PollingTaskCancellationToken.IsCancellationRequested) SenseManager.ReleaseFrame();
@@ -156,14 +163,12 @@ namespace PulseEstimationWPF
         }
         #endregion
 
-
-
         private void ElaborateSample(PXCMCapture.Sample sample, PXCMFaceData.Face face)
         {
             if (sample == null) return;
 
             WriteableBitmap imageRGB = null;
-            float heartRate =-1;
+            float heartRate = -1;
             if (sample.color != null)
             {
                 imageRGB = sample.color.GetImage();
@@ -195,11 +200,36 @@ namespace PulseEstimationWPF
             Dispatcher.Invoke(() =>
             {
                 this.ImageRGB = imageRGB;
-                HeartRate =(int) Math.Round(heartRate,0);
+                HeartRate = (int)Math.Round(heartRate, 0);
+                SetHeartBeatStoryboardDuration(HeartRate);
                 IsHeartRateRetrieved = heartRate > 0;
             });
 
         }
+        private void SetHeartBeatStoryboardDuration(int heartBeatBpm)
+        {
+            if (heartBeatBpm > 0)
+            {
+                if (!LastHeartRate.HasValue || Math.Abs(LastHeartRate.Value - heartBeatBpm) > 10)
+                {
+                    HeartBeatStoryboard.Stop();
+                    LastHeartRate = heartBeatBpm;
+                    HeartBeatStoryboard.Duration = new Duration(CalculateHeartBeatDuration(heartBeatBpm));
+                    HeartBeatStoryboard.Begin();
+                }
+            }
+            else {
+                LastHeartRate = null;
+                HeartBeatStoryboard.Stop();
+            }
+        }
 
+        private TimeSpan CalculateHeartBeatDuration(int bpm)
+        {
+            var beatFrequency = 1 / (double)bpm;
+            var sec = (int)Math.Floor(beatFrequency * 60);
+            var milliSec = (int)((beatFrequency * 60 - sec) * 1000);
+            return new TimeSpan(0, 0, 0, sec, milliSec);
+        }
     }
 }

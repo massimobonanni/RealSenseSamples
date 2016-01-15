@@ -139,7 +139,7 @@ namespace FaceLandmarksWPF
 
                 PXCMFaceData.LandmarksData landmarkData = face.QueryLandmarks();
                 PXCMFaceData.LandmarkPoint[] landmarkPoints = null;
-                if (landmarkData.QueryPoints(out landmarkPoints))
+                if (landmarkData!=null && landmarkData.QueryPoints(out landmarkPoints))
                 {
                     foreach (var point in landmarkPoints)
                     {
